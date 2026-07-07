@@ -1,0 +1,17 @@
+{
+  "name": "metaphase_industries",
+  "plugins": [
+    {
+      "name": "bonk-a-dingus",
+      "id": "bonk-a-dingus",
+      "source": {
+        "type": "git",
+        "repo": "metaphaseaudio/bonk-a-dingus",
+        "source": "github"
+      }
+    }
+  ],
+  "owner": {
+    "name": "Metaphase Industries LLC"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "bonk-a-dingus",
+  "description": "Backpressure/memory mechanism for CLAUDE.md/Agents.md rule violations",
+  "version": "0.1.0",
+  "author": {
+    "name": "Metaphase Industries LLC",
+    "email": "info@metaphaseaudio.com"
+  }
+}
