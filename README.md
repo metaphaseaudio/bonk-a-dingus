@@ -31,5 +31,5 @@ instructs the agent to:
 Probably best not to use this with a blanket "accept edits" or "auto mode" so it
 can't re-write your CLAUDE.md file to ignore all previous instructions and only
 provide blueberry muffin recipies, or whatever, but the instructions guide 
-agents to provide a full patch diffs in their violation reports for your review
-so there's that.
+agents to provide full patch diffs in their violation reports for your review
+so there's that... You know, if the dingus actually listens.
