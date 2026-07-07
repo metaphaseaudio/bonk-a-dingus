@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 import argparse
-import json
-import sys
 from datetime import datetime
+import json
+import logging
 from pathlib import Path
+import sys
+
 import whatthepatch as wtp
 from whatthepatch.patch import diffobj
+
+logging.basicConfig(level=logging.INFO)
 
 
 LOG_PATH = Path.home() / ".claude" / "dingus_log.json"
@@ -56,3 +60,4 @@ if __name__ == "__main__":
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     LOG_PATH.write_text(json.dumps(entries, indent=4) + "\n", encoding="utf-8")
+    logging.info(f"Violation log complete, ya dingus.")
