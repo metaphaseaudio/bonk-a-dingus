@@ -12,7 +12,7 @@ that dinugs any time you catch it doing dingus-type things.
 claude plugin marketplace add metaphaseaudio/bonk-a-dingus
 claude plugin install bonk-a-dingus@metaphase_industries
 ```
-or if you're allergic to using the terminal yourself like some pleb anymore:
+or if you've become allergic to using the terminal yourself like some pleb:
 ```
 /plugin marketplace add metaphaseaudio/bonk-a-dingus
 /plugin install bonk-a-dingus@metaphase_industries
@@ -23,7 +23,9 @@ telling it what stupid thing it did this time. The prayer file in this skill
 instructs the agent to:
 1. Figure out why it ignored your pleas for it to behave
 2. Decide whether any rule additions/changes need to be made to your global 
-   prayer files
+   prayer files (if any -- sometimes LLMs will simply say "I'm a hateful pile of
+   linear algebra which ignored a perfectly clear and valid rule for no reason
+   whatsoever.")
 3. Log the violation with a tool that manages all these logs in a structured and
    deterministic way.
 4. Fix the thing it broke and maybe also bits of your prayer files. 
