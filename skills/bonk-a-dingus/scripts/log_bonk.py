@@ -4,6 +4,7 @@ from datetime import datetime
 import json
 import logging
 from pathlib import Path
+import subprocess
 import sys
 
 import whatthepatch as wtp
@@ -29,15 +30,14 @@ if __name__ == "__main__":
         in_path = Path(parsed.header.old_path).expanduser()
         out_path = Path(parsed.header.new_path).expanduser()
 
-        sys.stderr.write(args.correction)
-        sys.stderr.write(f"\nApply correction to {out_path}? [y/N]: ")
-        sys.stderr.flush()
-        try:
-            with open("/dev/tty", "r") as tty:
-                answer = tty.readline().strip()
-        except OSError:
-            sys.exit("No TTY available. Correction denied.")
-        if answer.lower() not in ("y", "yes"):
+        prompt = (
+            f'display dialog "Apply this bonk-a-dingus rule correction to {out_path}?" '
+            'buttons {"Deny", "Apply"} default button "Deny" '
+            'with title "bonk-a-dingus"'
+        )
+        result = subprocess.run(["osascript", "-e", prompt], capture_output=True, text=True, check=True)
+
+        if "button returned:Apply" not in result.stdout:
             sys.exit("Correction rejected.")
 
         patched = wtp.apply_diff(parsed, in_path.read_text())
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         "rules": args.rules,
         "what": args.what,
         "why": args.why,
-        "correction": args.correction
+        "correction": args.correction,
     }
 
     entries = []
@@ -60,4 +60,4 @@ if __name__ == "__main__":
 
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     LOG_PATH.write_text(json.dumps(entries, indent=4) + "\n", encoding="utf-8")
-    logging.info(f"Violation log complete, ya dingus.")
+    logging.info("Violation log complete, ya dingus.")

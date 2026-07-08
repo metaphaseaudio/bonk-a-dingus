@@ -35,11 +35,11 @@ so the order is stable.
    have caught this exact class of mistake, and keep it generic so the 
    always-loaded rules files do not accumulate noise specific to sessions.
    Identify the fix for whatever was flagged as a part of this step.
-3. **Log it!** Tell the user what you intend to do, and then run the bundled 
-   script. This handles all the heavy lifting for you when you provide the 
-   fields listed below. Note that the `--correction` must be provided in a 
-   unified diff format with `---`,`+++`, and `@@` hunks. It must contain the
-   full paths of the files you intend to edit.
+3. **Log it!** Tell the user what you intend to do, **ask permission** and then
+   run the bundled script. This handles all the heavy lifting for you when you
+   provide the fields listed below. Note that the `--correction` must be 
+   provided in a unified diff format with `---`,`+++`, and `@@` hunks. It must
+   contain the full paths of the files you intend to edit.
     ```
     "${CLAUDE_PLUGIN_DATA}/.venv/bin/python" "${CLAUDE_PLUGIN_ROOT}/skills/bonk-a-dingus/scripts/log_bonk.py" \
        --rules "..." --what "..." --why "..." --correction "..."
