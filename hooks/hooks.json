@@ -6,7 +6,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/skills/bonk-a-dingus/scripts/setup.sh"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/skills/bonk-a-dingus/scripts/setup.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__plugin_bonk-a-dingus_bonk-a-dingus__log_bonk",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/ask_confirm_bonk.sh\""
           }
         ]
       }

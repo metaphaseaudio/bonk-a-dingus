@@ -35,25 +35,40 @@ so the order is stable.
    have caught this exact class of mistake, and keep it generic so the 
    always-loaded rules files do not accumulate noise specific to sessions.
    Identify the fix for whatever was flagged as a part of this step.
-3. **Log it!** Tell the user what you intend to do, **ask permission** and then
-   run the bundled script. This handles all the heavy lifting for you when you
-   provide the fields listed below. Note that the `--correction` must be 
-   provided in a unified diff format with `---`,`+++`, and `@@` hunks. It must
-   contain the full paths of the files you intend to edit.
-    ```
-    "${CLAUDE_PLUGIN_DATA}/.venv/bin/python" "${CLAUDE_PLUGIN_ROOT}/skills/bonk-a-dingus/scripts/log_bonk.py" \
-       --rules "..." --what "..." --why "..." --correction "..."
-    ```
+3. **Log it, applying a fix if there is one.** Tell the user what you intend
+   to do, then call the bundled `log_bonk` MCP tool directly — no bash
+   script, no CLI flags.
+   - Call `log_bonk` with `rules`, `what`, `why`, and (if, and only if, step
+     2 concluded a rule file itself needs to change) `correction` as a
+     unified diff (`---`, `+++`, `@@` hunks, full paths). In one call this
+     both applies the diff (if given) and writes the log entry — the two
+     never happen separately, so the log always reflects exactly what was
+     applied.
+   - This tool always requires explicit user approval, regardless of any
+     permission mode already granted — treat a denial as a final "no": do
+     not retry with a different diff to route around it, and do not fall
+     back to Edit/Write on the rules file instead. Nothing is applied or
+     logged if denied.
+   - If applying the diff fails, re-read the file, regenerate the diff
+     against current content, and call `log_bonk` again; this is not
+     something to catch and log around.
 4. **Resolve the flagged violation** This is done last to ensure all the context
    remains fresh.
 
-## Fields for the script
-| Flag           | Holds                                                                                  |
-|----------------|----------------------------------------------------------------------------------------|
-| `--rules`      | the file + section reference + quoted text of the rule(s) violated                     |
-| `--what`       | the specific action/output that violated the rules                                     |
-| `--why`        | the circumstances that lead to the violation                                           |
-| `--correction` | the minimal, generic rule-edit as a unified diff (omit if nothing needs to be changed) |
+## Fields for the tool
+| Tool        | Parameter    | Holds                                                                |
+|-------------|--------------|-----------------------------------------------------------------------|
+| `log_bonk`  | `rules`      | file + section reference + quoted text of the rule(s) violated        |
+| `log_bonk`  | `what`       | the specific action/output that violated the rules                    |
+| `log_bonk`  | `why`        | the circumstances that led to the violation                           |
+| `log_bonk`  | `correction` | the rule-edit as a unified diff (omit if none), format below          |
+
+`correction` header paths must be plain absolute paths — no `a/`/`b/` prefix:
+```
+--- /full/path/to/CLAUDE.md
++++ /full/path/to/CLAUDE.md
+@@ ...
+```
 
 ## Rules
 
